@@ -7,7 +7,7 @@ var baseHtml = `
 </head>
 <body>
   <div class="page-container">
-    <h1>%title%</h1>
+    <h2>Calendar Sync Demo</h2> <!-- Static title here -->
     %body%
   </div>
 </body>
@@ -19,6 +19,7 @@ module.exports = {
     var html = `<a class="button" href="${signinUrl}">Sign in with Microsoft</a>`;
     return baseHtml.replace('%title%', 'Login').replace('%body%', html);
   },
+
   homePage: function (userEmail, events) {
     var html = `
       <p>Signed in as: <strong>${userEmail}</strong></p>
@@ -38,18 +39,25 @@ module.exports = {
     `;
     return baseHtml.replace('%title%', 'Your Events').replace('%body%', html);
   },
-  addEventPage : function () {
+
+  addEventPage: function () {
     return `
-      <h1>Add New Event</h1>
+      <h2>Add New Event</h2>
       <form action="/addevent" method="post" class="form-container">
-        <label for="subject" class="form-label">Subject: <input type="text" name="subject" id="subject" class="form-input" required /></label><br/>
-        <label for="startTime" class="form-label">Start Time: <input type="datetime-local" name="startTime" id="startTime" class="form-input" required /></label><br/>
-        <label for="endTime" class="form-label">End Time: <input type="datetime-local" name="endTime" id="endTime" class="form-input" required /></label><br/>
-        <input type="submit" class="ms-Button ms-Button--primary" value="Create Event" />
+        <label for="subject" class="form-label">Subject: 
+          <input type="text" name="subject" id="subject" class="form-input" required />
+        </label>
+        <label for="startTime" class="form-label">Start Time: 
+          <input type="datetime-local" name="startTime" id="startTime" class="form-input" required />
+        </label>
+        <label for="endTime" class="form-label">End Time: 
+          <input type="datetime-local" name="endTime" id="endTime" class="form-input" required />
+        </label>
+        <input type="submit" value="Create Event" />
       </form>
     `;
   },
-  
+
   eventCreatedPage: function (event) {
     var html = `
       <p>Event "<strong>${event.subject}</strong>" created successfully!</p>
@@ -60,6 +68,7 @@ module.exports = {
     `;
     return baseHtml.replace('%title%', 'Event Created').replace('%body%', html);
   },
+
   errorPage: function (message, error) {
     var html = `<p><strong>${message}</strong></p><p>${error.message}</p>`;
     return baseHtml.replace('%title%', 'Error').replace('%body%', html);
